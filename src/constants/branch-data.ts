@@ -31,7 +31,7 @@ export type Branch = {
   id: string;
   code: string;
   name: string;
-  manager: { name: string; phone: string; email: string; since: string };
+  manager: { name: string; phone: string; email: string; since: string; managerId: string };
   phone: string;
   email: string;
   city: string;
@@ -59,6 +59,7 @@ export const BRANCHES: Branch[] = [
       phone: "+880 1711-204588",
       email: "farhana.rahman@speecherp.com.bd",
       since: "2023-02-14",
+      managerId: "MGR-DHK-001",
     },
     phone: "+880 2-9611230",
     email: "dhaka.main@speecherp.com.bd",
@@ -85,6 +86,7 @@ export const BRANCHES: Branch[] = [
       phone: "+880 1712-889034",
       email: "imran.hossain@speecherp.com.bd",
       since: "2023-06-01",
+      managerId: "MGR-DHK-002",
     },
     phone: "+880 2-9884471",
     email: "gulshan@speecherp.com.bd",
@@ -111,6 +113,7 @@ export const BRANCHES: Branch[] = [
       phone: "+880 1819-447120",
       email: "nusrat.jahan@speecherp.com.bd",
       since: "2024-01-08",
+      managerId: "MGR-CTG-003",
     },
     phone: "+880 31-2556710",
     email: "chattogram@speecherp.com.bd",
@@ -137,6 +140,7 @@ export const BRANCHES: Branch[] = [
       phone: "+880 1730-556218",
       email: "tanvir.ahmed@speecherp.com.bd",
       since: "2024-04-17",
+      managerId: "MGR-SYL-004",
     },
     phone: "+880 821-728840",
     email: "sylhet@speecherp.com.bd",
@@ -163,6 +167,7 @@ export const BRANCHES: Branch[] = [
       phone: "+880 1745-330192",
       email: "sadia.karim@speecherp.com.bd",
       since: "2024-09-05",
+      managerId: "MGR-RAJ-005",
     },
     phone: "+880 721-774510",
     email: "rajshahi@speecherp.com.bd",
@@ -189,6 +194,7 @@ export const BRANCHES: Branch[] = [
       phone: "+880 1766-901255",
       email: "maliha.sultana@speecherp.com.bd",
       since: "2025-01-20",
+      managerId: "MGR-KHL-006",
     },
     phone: "+880 41-812340",
     email: "khulna@speecherp.com.bd",
@@ -215,6 +221,7 @@ export const BRANCHES: Branch[] = [
       phone: "+880 1788-114073",
       email: "jubayer.alam@speecherp.com.bd",
       since: "2025-05-12",
+      managerId: "MGR-BAR-007",
     },
     phone: "+880 431-64220",
     email: "barishal@speecherp.com.bd",
@@ -241,6 +248,7 @@ export const BRANCHES: Branch[] = [
       phone: "+880 1799-620884",
       email: "shirin.akter@speecherp.com.bd",
       since: "2025-11-03",
+      managerId: "MGR-CUM-008",
     },
     phone: "+880 81-76455",
     email: "cumilla@speecherp.com.bd",
@@ -405,4 +413,10 @@ export const BRANCH_REVENUE_TREND: BranchRevenuePoint[] = [
 
 export function findBranch(id: string) {
   return BRANCHES.find((branch) => branch.id === id);
+}
+
+export function findBranchByManagerId(managerId: string) {
+  return BRANCHES.find(
+    (branch) => branch.manager.managerId.toLowerCase() === managerId.trim().toLowerCase(),
+  );
 }

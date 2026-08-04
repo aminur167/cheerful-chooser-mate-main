@@ -37,7 +37,8 @@ const workspaces = [
     icon: Building2,
     title: "Branch Manager",
     description: "Manage branch operations",
-    to: "/manager",
+    to: "/auth/login",
+    search: { mode: "manager" },
   },
 ] as const;
 
@@ -81,6 +82,7 @@ function EntryPage() {
 
                 <Link
                   to={workspace.to}
+                  search={"search" in workspace ? workspace.search : undefined}
                   className="absolute inset-0 z-10 rounded-xl"
                   aria-label={`${workspace.title} — ${workspace.description}`}
                 >

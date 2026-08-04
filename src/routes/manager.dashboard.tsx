@@ -20,7 +20,8 @@ import {
   RecentNotifications,
   TodayGoals,
 } from "@/components/manager/side-widgets";
-import { BRANCH_NAME, MANAGER_KPIS } from "@/constants/manager-dashboard-data";
+import { MANAGER_KPIS } from "@/constants/manager-dashboard-data";
+import { getActiveBranch } from "@/lib/manager-session";
 
 const TITLE = "Branch Dashboard — Speech Therapy ERP";
 const DESCRIPTION =
@@ -41,6 +42,7 @@ export const Route = createFileRoute("/manager/dashboard")({
 });
 
 function ManagerDashboard() {
+  const branch = getActiveBranch();
   const today = new Intl.DateTimeFormat("en-GB", {
     weekday: "long",
     day: "numeric",
@@ -60,7 +62,7 @@ function ManagerDashboard() {
         actions={
           <>
             <span className="hidden rounded-lg border border-border bg-muted/40 px-3 py-2 text-[12.5px] font-medium text-muted-foreground sm:inline-block">
-              {BRANCH_NAME} · {today}
+              {branch?.name ?? "Branch"} · {today}
             </span>
             <Button variant="outline">
               <Download className="h-4 w-4" aria-hidden="true" />
