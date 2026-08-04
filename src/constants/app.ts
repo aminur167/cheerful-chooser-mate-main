@@ -1,7 +1,7 @@
 export const APP_NAME = "Speech Therapy ERP";
 export const APP_SHORT_NAME = "ST ERP";
 export const APP_SUBTITLE = "Multi-Branch ERP SaaS";
-export const APP_TAGLINE = "Multi-branch clinic operations platform";
+export const APP_TAGLINE = "Multi-branch clinic management system";
 
 /** Placeholder identity used until the Django REST backend is wired up. */
 export const DEMO_USER = {

@@ -1,0 +1,1 @@
+import{a as e,h as t,i as n,m as r,o as i}from"./chart-DTxCDMoO.js";var a=n({chartName:`BarChart`,GraphicalChild:t,defaultTooltipEventType:`axis`,validateTooltipEventTypes:[`axis`,`item`],axisComponents:[{axisType:`xAxis`,AxisComp:i},{axisType:`yAxis`,AxisComp:e}],formatAxisMap:r});export{a as t};

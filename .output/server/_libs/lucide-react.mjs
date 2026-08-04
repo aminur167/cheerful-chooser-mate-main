@@ -298,6 +298,30 @@ var BadgeDollarSign = createLucideIcon("badge-dollar-sign", [
 * This source code is licensed under the ISC license.
 * See the LICENSE file in the root directory of this source tree.
 */
+var BadgePercent = createLucideIcon("badge-percent", [
+	["path", {
+		d: "M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z",
+		key: "3c2336"
+	}],
+	["path", {
+		d: "m15 9-6 6",
+		key: "1uzhvr"
+	}],
+	["path", {
+		d: "M9 9h.01",
+		key: "1q5me6"
+	}],
+	["path", {
+		d: "M15 15h.01",
+		key: "lqbp3k"
+	}]
+]);
+/**
+* @license lucide-react v0.575.0 - ISC
+*
+* This source code is licensed under the ISC license.
+* See the LICENSE file in the root directory of this source tree.
+*/
 var Ban = createLucideIcon("ban", [["circle", {
 	cx: "12",
 	cy: "12",
@@ -2059,26 +2083,6 @@ var Minus = createLucideIcon("minus", [["path", {
 * This source code is licensed under the ISC license.
 * See the LICENSE file in the root directory of this source tree.
 */
-var MoonStar = createLucideIcon("moon-star", [
-	["path", {
-		d: "M18 5h4",
-		key: "1lhgn2"
-	}],
-	["path", {
-		d: "M20 3v4",
-		key: "1olli1"
-	}],
-	["path", {
-		d: "M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401",
-		key: "kfwtm"
-	}]
-]);
-/**
-* @license lucide-react v0.575.0 - ISC
-*
-* This source code is licensed under the ISC license.
-* See the LICENSE file in the root directory of this source tree.
-*/
 var Moon = createLucideIcon("moon", [["path", {
 	d: "M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401",
 	key: "kfwtm"
@@ -3530,4 +3534,4 @@ var Zap = createLucideIcon("zap", [["path", {
 	key: "1xq2db"
 }]]);
 //#endregion
-export { PhoneCall as $, ClipboardCheck as $t, ShoppingCart as A, BanknoteArrowUp as An, House as At, RotateCcw as B, ArrowDownRight as Bn, FileChartColumnIncreasing as Bt, Sunset as C, Boxes as Cn, LifeBuoy as Ct, Stethoscope as D, Bell as Dn, Italic as Dt, StickyNote as E, Blocks as En, Layers as Et, Send as F, ArrowUpFromLine as Fn, Gauge as Ft, ReceiptText as G, DoorOpen as Gt, RefreshCw as H, Activity as Hn, Ellipsis as Ht, Search as I, ArrowRight as In, Flame as It, Printer as J, Columns3 as Jt, Receipt as K, CreditCard as Kt, School as L, ArrowLeft as Ln, FileText as Lt, Settings as M, BadgeDollarSign as Mn, History as Mt, Settings2 as N, BadgeCheck as Nn, HeartPulse as Nt, Sparkles as O, BellRing as On, Inbox as Ot, ServerCog as P, ArrowUpRight as Pn, Globe as Pt, Phone as Q, ClipboardList as Qt, ScanFace as R, ArrowLeftRight as Rn, FileDown as Rt, Target as S, BriefcaseMedical as Sn, ListOrdered as St, Sun as T, Bold as Tn, LayoutGrid as Tt, RefreshCcw as U, Droplets as Ut, Repeat2 as V, Archive as Vn, Eye as Vt, Redo2 as W, Download as Wt, PowerOff as X, CloudRain as Xt, Power as Y, Cog as Yt, Plus as Z, Clock as Zt, Type as _, CalendarDays as _n, LogOut as _t, Wallet as a, CircleCheck as an, PackageMinus as at, TrendingUp as b, Building as bn, List as bt, User as c, ChevronRight as cn, Moon as ct, UserRoundCheck as d, Check as dn, MessageSquare as dt, Circle as en, Pencil as et, UserMinus as f, ChartPie as fn, Menu as ft, Underline as g, CalendarPlus as gn, Mail as gt, Undo2 as h, CalendarRange as hn, MapPin as ht, Waves as i, CircleDollarSign as in, PackagePlus as it, ShieldCheck as j, Ban as jn, Hourglass as jt, SlidersHorizontal as k, Banknote as kn, ImagePlus as kt, UserRound as l, ChevronLeft as ln, MoonStar as lt, Upload as m, ChartColumn as mn, MapPinned as mt, X as n, CirclePlay as nn, Package as nt, Users as o, ChevronsLeft as on, PackageCheck as ot, UserCog as p, ChartLine as pn, Megaphone as pt, Quote as q, Copy as qt, Wind as r, CirclePause as rn, PackageX as rt, UsersRound as s, ChevronUp as sn, NotebookPen as st, Zap as t, CircleX as tn, PencilLine as tt, UserPlus as u, ChevronDown as un, Minus as ut, Trophy as v, CalendarClock as vn, LockKeyhole as vt, Sunrise as w, BookOpen as wn, Library as wt, Trash2 as x, Building2 as xn, ListTodo as xt, TriangleAlert as y, CalendarCheck as yn, LoaderCircle as yt, Save as z, ArrowDownToLine as zn, FileClock as zt };
+export { PhoneCall as $, Circle as $t, ShoppingCart as A, Ban as An, Hourglass as At, RotateCcw as B, ArrowDownRight as Bn, Eye as Bt, Sunset as C, BookOpen as Cn, Library as Ct, Stethoscope as D, BellRing as Dn, Inbox as Dt, StickyNote as E, Bell as En, Italic as Et, Send as F, ArrowUpFromLine as Fn, Flame as Ft, ReceiptText as G, CreditCard as Gt, RefreshCw as H, Activity as Hn, Droplets as Ht, Search as I, ArrowRight as In, FileText as It, Printer as J, Cog as Jt, Receipt as K, Copy as Kt, School as L, ArrowLeft as Ln, FileDown as Lt, Settings as M, BadgeDollarSign as Mn, HeartPulse as Mt, Settings2 as N, BadgeCheck as Nn, Globe as Nt, Sparkles as O, Banknote as On, ImagePlus as Ot, ServerCog as P, ArrowUpRight as Pn, Gauge as Pt, Phone as Q, ClipboardCheck as Qt, ScanFace as R, ArrowLeftRight as Rn, FileClock as Rt, Target as S, Boxes as Sn, LifeBuoy as St, Sun as T, Blocks as Tn, Layers as Tt, RefreshCcw as U, Download as Ut, Repeat2 as V, Archive as Vn, Ellipsis as Vt, Redo2 as W, DoorOpen as Wt, PowerOff as X, Clock as Xt, Power as Y, CloudRain as Yt, Plus as Z, ClipboardList as Zt, Type as _, CalendarClock as _n, LockKeyhole as _t, Wallet as a, ChevronsLeft as an, PackageMinus as at, TrendingUp as b, Building2 as bn, ListTodo as bt, User as c, ChevronLeft as cn, Moon as ct, UserRoundCheck as d, ChartPie as dn, Menu as dt, CircleX as en, Pencil as et, UserMinus as f, ChartLine as fn, Megaphone as ft, Underline as g, CalendarDays as gn, LogOut as gt, Undo2 as h, CalendarPlus as hn, Mail as ht, Waves as i, CircleCheck as in, PackagePlus as it, ShieldCheck as j, BadgePercent as jn, History as jt, SlidersHorizontal as k, BanknoteArrowUp as kn, House as kt, UserRound as l, ChevronDown as ln, Minus as lt, Upload as m, CalendarRange as mn, MapPin as mt, X as n, CirclePause as nn, Package as nt, Users as o, ChevronUp as on, PackageCheck as ot, UserCog as p, ChartColumn as pn, MapPinned as pt, Quote as q, Columns3 as qt, Wind as r, CircleDollarSign as rn, PackageX as rt, UsersRound as s, ChevronRight as sn, NotebookPen as st, Zap as t, CirclePlay as tn, PencilLine as tt, UserPlus as u, Check as un, MessageSquare as ut, Trophy as v, CalendarCheck as vn, LoaderCircle as vt, Sunrise as w, Bold as wn, LayoutGrid as wt, Trash2 as x, BriefcaseMedical as xn, ListOrdered as xt, TriangleAlert as y, Building as yn, List as yt, Save as z, ArrowDownToLine as zn, FileChartColumnIncreasing as zt };

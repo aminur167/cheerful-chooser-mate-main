@@ -1,0 +1,1 @@
+import{r as e}from"./useRouter-Ch6OGJRG.js";import{Ar as t}from"./index-dpU-N3g5.js";var n=e(),r=()=>(0,n.jsx)(t,{to:`/auth/login`,replace:!0});export{r as component};
