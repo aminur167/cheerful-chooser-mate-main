@@ -122,7 +122,13 @@ function MaterialsPage() {
       const material = MATERIALS.find((item) => item.id === sale.materialId);
       const matchesQuery =
         !query ||
-        [sale.invoiceNo, sale.customerName, sale.customerPhone, sale.materialName, sale.materialCode]
+        [
+          sale.invoiceNo,
+          sale.customerName,
+          sale.customerPhone,
+          sale.materialName,
+          sale.materialCode,
+        ]
           .join(" ")
           .toLowerCase()
           .includes(query);
@@ -186,10 +192,7 @@ function MaterialsPage() {
       <PageHeader
         title="Materials & Sales"
         description="Manage therapy materials, inventory and sales."
-        breadcrumbs={[
-          { label: "Branch Manager", to: "/manager" },
-          { label: "Materials & Sales" },
-        ]}
+        breadcrumbs={[{ label: "Branch Manager", to: "/manager" }, { label: "Materials & Sales" }]}
         actions={
           <>
             <Button variant="outline">
@@ -199,10 +202,6 @@ function MaterialsPage() {
             <Button variant="outline" onClick={() => setMaterialDialogOpen(true)}>
               <Plus className="h-4 w-4" aria-hidden="true" />
               Add Material
-            </Button>
-            <Button onClick={() => openSale()}>
-              <ShoppingCart className="h-4 w-4" aria-hidden="true" />
-              New Sale
             </Button>
           </>
         }
