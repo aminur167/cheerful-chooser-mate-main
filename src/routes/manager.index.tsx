@@ -1,8 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { LayoutGrid } from "lucide-react";
+import { Building2, KeyRound, LayoutGrid, UserRound } from "lucide-react";
 import { PageHeader } from "@/components/common/page-header";
 import { EmptyState } from "@/components/common/empty-state";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
+import { getActiveBranch, getManagerSession } from "@/lib/manager-session";
 
 export const Route = createFileRoute("/manager/")({
   head: () => ({
@@ -17,13 +19,67 @@ export const Route = createFileRoute("/manager/")({
 });
 
 function ManagerHome() {
+  const branch = getActiveBranch();
+  const session = getManagerSession();
+
   return (
     <div className="space-y-8">
       <PageHeader
-        title="Branch Manager workspace"
-        description="Placeholder route group. Branch-level modules will mount here."
+        title={branch ? `${branch.name} workspace` : "Branch Manager workspace"}
+        description={
+          branch
+            ? `Signed in as ${session?.managerName ?? "Branch Manager"} · ${branch.manager.managerId}`
+            : "Placeholder route group. Branch-level modules will mount here."
+        }
         actions={<Button variant="outline">Placeholder action</Button>}
       />
+
+      {branch && (
+        <section aria-label="Branch identity" className="grid gap-4 sm:grid-cols-3">
+          <Card>
+            <CardContent className="flex items-center gap-3 p-5">
+              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-primary/10 text-primary">
+                <Building2 className="h-5 w-5" aria-hidden="true" />
+              </span>
+              <div className="min-w-0">
+                <CardTitle className="text-sm">{branch.name}</CardTitle>
+                <CardDescription className="mt-0.5 truncate">
+                  {branch.city}, {branch.division}
+                </CardDescription>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="flex items-center gap-3 p-5">
+              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-primary/10 text-primary">
+                <UserRound className="h-5 w-5" aria-hidden="true" />
+              </span>
+              <div className="min-w-0">
+                <CardTitle className="text-sm">{branch.manager.name}</CardTitle>
+                <CardDescription className="mt-0.5 truncate">
+                  Branch Manager · since {branch.manager.since}
+                </CardDescription>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="flex items-center gap-3 p-5">
+              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-primary/10 text-primary">
+                <KeyRound className="h-5 w-5" aria-hidden="true" />
+              </span>
+              <div className="min-w-0">
+                <CardTitle className="font-mono text-sm">{branch.manager.managerId}</CardTitle>
+                <CardDescription className="mt-0.5 truncate">
+                  Your unique manager key
+                </CardDescription>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+      )}
+
       <EmptyState
         icon={LayoutGrid}
         title="No modules mounted yet"

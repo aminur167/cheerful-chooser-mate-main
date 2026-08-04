@@ -1,0 +1,1 @@
+import{f as e,l as t,r as n}from"./useRouter-Ch6OGJRG.js";import{t as r}from"./utils-B6KiDbIe.js";import{n as i}from"./input-DKpLGZ0B.js";var a=e(t(),1),o=n(),s=a.forwardRef(({className:e,...t},n)=>(0,o.jsx)(`textarea`,{className:r(i,`min-h-24 resize-y px-3 py-2.5 leading-relaxed`,e),ref:n,...t}));s.displayName=`Textarea`;export{s as t};

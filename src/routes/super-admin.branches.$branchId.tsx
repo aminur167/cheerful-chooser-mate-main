@@ -8,6 +8,7 @@ import {
   CalendarCheck,
   Clock,
   FileText,
+  KeyRound,
   Mail,
   MapPin,
   PencilLine,
@@ -170,6 +171,17 @@ function BranchDetailPage() {
           <dl className="mt-5 space-y-4">
             <Field icon={Phone} label="Phone" value={branch.manager.phone} />
             <Field icon={Mail} label="Email" value={branch.manager.email} />
+            <div className="flex items-start gap-2.5">
+              <KeyRound className="mt-1 h-4 w-4 shrink-0 text-muted-foreground" aria-hidden="true" />
+              <div className="min-w-0">
+                <dt className="text-[12px] text-muted-foreground">Manager unique key</dt>
+                <dd className="mt-1.5">
+                  <span className="inline-flex items-center gap-1.5 rounded-md border border-border bg-muted/40 px-2 py-1 font-mono text-[12px] font-medium text-foreground">
+                    {branch.manager.managerId}
+                  </span>
+                </dd>
+              </div>
+            </div>
           </dl>
         </WidgetCard>
       </div>

@@ -6,6 +6,7 @@ import {
   Clock,
   Eye,
   FileText,
+  KeyRound,
   Mail,
   MapPin,
   MoreHorizontal,
@@ -40,6 +41,7 @@ const HEADERS = [
   "Branch Code",
   "Branch Name",
   "Branch Manager",
+  "Manager Key",
   "Phone",
   "City",
   "Patients",
@@ -128,6 +130,12 @@ export function BranchTable({
                           Branch Manager
                         </span>
                       </span>
+                    </span>
+                  </TableCell>
+                  <TableCell className="whitespace-nowrap px-5 py-3.5">
+                    <span className="inline-flex items-center gap-1.5 rounded-md border border-border bg-muted/40 px-2 py-1 font-mono text-[12px] font-medium text-foreground">
+                      <KeyRound className="h-3.5 w-3.5 text-muted-foreground" aria-hidden="true" />
+                      {branch.manager.managerId}
                     </span>
                   </TableCell>
                   <TableCell className="whitespace-nowrap px-5 py-3.5 text-sm tabular-nums text-muted-foreground">
@@ -260,6 +268,7 @@ function BranchDetailPanel({ branch }: { branch: Branch }) {
         </div>
         <DetailLine icon={Phone} label="Phone" value={branch.manager.phone} />
         <DetailLine icon={Mail} label="Email" value={branch.manager.email} />
+        <DetailLine icon={KeyRound} label="Manager unique key" value={branch.manager.managerId} />
         <Button variant="outline" size="sm" asChild>
           <Link to="/super-admin/branches/$branchId" params={{ branchId: branch.id }}>
             Open branch profile
