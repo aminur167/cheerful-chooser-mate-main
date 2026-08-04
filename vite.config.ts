@@ -12,4 +12,8 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  // Build for Netlify (serverless functions) instead of the Cloudflare default.
+  nitro: {
+    preset: "netlify",
+  },
 });
