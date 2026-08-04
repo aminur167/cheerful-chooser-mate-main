@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Download, Plus } from "lucide-react";
+import { Download } from "lucide-react";
 import { PageHeader } from "@/components/common/page-header";
 import { Button } from "@/components/ui/button";
 import { KpiCard } from "@/components/dashboard/kpi-card";
@@ -65,10 +65,6 @@ function ManagerDashboard() {
             <Button variant="outline">
               <Download className="h-4 w-4" aria-hidden="true" />
               Daily report
-            </Button>
-            <Button>
-              <Plus className="h-4 w-4" aria-hidden="true" />
-              New Appointment
             </Button>
           </>
         }
