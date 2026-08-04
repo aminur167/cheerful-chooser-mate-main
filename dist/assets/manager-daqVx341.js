@@ -1,0 +1,1 @@
+import{r as e}from"./useRouter-Ch6OGJRG.js";import{t}from"./app-shell-Cq-ytsfh.js";import{Ar as n}from"./index-DpjWu9VH.js";var r=e();function i(){return(0,r.jsx)(t,{workspace:`manager`,children:(0,r.jsx)(n,{})})}export{i as component};

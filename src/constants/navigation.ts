@@ -95,7 +95,7 @@ export const NAVIGATION: Record<WorkspaceKey, NavSection[]> = {
         { label: "Patients", icon: UsersRound, to: "/manager/patients" },
         { label: "Assessments", icon: ClipboardCheck, to: "/manager/assessments" },
         { label: "Therapy", icon: Activity, to: "/manager/therapy" },
-        { label: "Payments", icon: Receipt, to: "/manager/payments" },
+        { label: "Packages", icon: Receipt, to: "/manager/payments" },
         { label: "Follow-up", icon: PhoneCall, to: "/manager/follow-up" },
         { label: "Materials", icon: Boxes, to: "/manager/materials" },
         { label: "Sales", icon: ShoppingCart, to: "/manager/sales" },
