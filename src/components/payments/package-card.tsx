@@ -1,4 +1,5 @@
 import {
+  BadgePercent,
   CalendarRange,
   CreditCard,
   Copy,
@@ -40,9 +41,11 @@ const TYPE_ICON: Record<PackageType, LucideIcon> = {
 export function PackageCard({
   item,
   onCollect,
+  onDiscount,
 }: {
   item: PaymentPackage;
   onCollect?: (item: PaymentPackage) => void;
+  onDiscount?: (item: PaymentPackage) => void;
 }) {
   const Icon = TYPE_ICON[item.type];
   const netPrice = Math.round(item.price * (1 - item.discount / 100));
@@ -61,7 +64,7 @@ export function PackageCard({
             <p className="truncate font-mono text-[12px] text-muted-foreground">{item.code}</p>
           </div>
         </div>
-        <PackageActions item={item} onCollect={onCollect} />
+        <PackageActions item={item} onCollect={onCollect} onDiscount={onDiscount} />
       </div>
 
       <div className="mt-3 flex flex-wrap items-center gap-2">
@@ -123,9 +126,11 @@ function Meta({ label, value }: { label: string; value: string }) {
 function PackageActions({
   item,
   onCollect,
+  onDiscount,
 }: {
   item: PaymentPackage;
   onCollect?: (item: PaymentPackage) => void;
+  onDiscount?: (item: PaymentPackage) => void;
 }) {
   return (
     <DropdownMenu>
@@ -147,6 +152,10 @@ function PackageActions({
         <DropdownMenuItem>
           <Copy className="h-4 w-4" aria-hidden="true" />
           Duplicate
+        </DropdownMenuItem>
+        <DropdownMenuItem onSelect={() => onDiscount?.(item)}>
+          <BadgePercent className="h-4 w-4" aria-hidden="true" />
+          Create discount
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onSelect={() => onCollect?.(item)}>
