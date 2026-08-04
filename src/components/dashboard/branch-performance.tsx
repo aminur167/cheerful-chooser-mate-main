@@ -1,19 +1,49 @@
+import { useState } from "react";
 import { Building2 } from "lucide-react";
 import { WidgetCard } from "@/components/dashboard/widget-card";
 import { StatusBadge } from "@/components/common/status-badge";
 import { Progress } from "@/components/ui/progress";
-import { TOP_BRANCHES, formatTaka } from "@/constants/dashboard-data";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  BRANCH_PERFORMANCE_SERIES,
+  BRANCH_RANGES,
+  formatTaka,
+  type RangeKey,
+} from "@/constants/dashboard-data";
 
 export function BranchPerformance() {
+  const [range, setRange] = useState<RangeKey>("30d");
+  const branches = BRANCH_PERFORMANCE_SERIES[range];
+
   return (
     <WidgetCard
       title="Branch Performance"
-      description="Top 5 branches by revenue this month"
+      description="Top 5 branches by revenue"
       icon={Building2}
+      action={
+        <Select value={range} onValueChange={(value) => setRange(value as RangeKey)}>
+          <SelectTrigger className="h-9 w-[152px]" aria-label="Select branch performance period">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent align="end">
+            {BRANCH_RANGES.map((option) => (
+              <SelectItem key={option.key} value={option.key}>
+                {option.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      }
       contentClassName="pb-2"
     >
       <ul className="-mx-2 divide-y divide-border">
-        {TOP_BRANCHES.map((branch) => (
+        {branches.map((branch) => (
           <li
             key={branch.id}
             className="rounded-lg px-2 py-4 transition-enterprise hover:bg-surface-hover"
