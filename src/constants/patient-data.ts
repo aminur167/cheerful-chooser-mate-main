@@ -46,12 +46,7 @@ export const PAYMENT_STATUS_TONE: Record<PaymentStatus, StatusTone> = {
   Overdue: "danger",
 };
 
-export type PatientTimelineIcon =
-  | "registered"
-  | "assessment"
-  | "therapy"
-  | "payment"
-  | "call";
+export type PatientTimelineIcon = "registered" | "assessment" | "therapy" | "payment" | "call";
 
 export type PatientTimelineEvent = {
   id: string;
@@ -118,7 +113,13 @@ export type Patient = {
   timeline: PatientTimelineEvent[];
 };
 
-function timeline(registered: string, assessment: string, session: string, payment: string, call: string) {
+function timeline(
+  registered: string,
+  assessment: string,
+  session: string,
+  payment: string,
+  call: string,
+) {
   return [
     {
       id: "t1",
@@ -781,7 +782,15 @@ export const GENDERS: Gender[] = ["Male", "Female"];
 
 export const BLOOD_GROUPS = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 
-export const GUARDIAN_RELATIONS = ["Father", "Mother", "Grandparent", "Sibling", "Uncle", "Aunt", "Other"];
+export const GUARDIAN_RELATIONS = [
+  "Father",
+  "Mother",
+  "Grandparent",
+  "Sibling",
+  "Uncle",
+  "Aunt",
+  "Other",
+];
 
 export const BRANCH_OPTIONS = [
   "Dhaka Main Branch",
@@ -800,24 +809,19 @@ export const THERAPISTS = [
   "Jubayer Alam",
 ];
 
-export const PROGRAM_OPTIONS = [
-  "Early Intervention — Level 1",
-  "Early Language Builder — Level 1",
-  "Articulation Programme — Level 2",
-  "Phonological Awareness — Level 2",
-  "Fluency Shaping — Level 3",
-  "Language Processing — Level 3",
-  "Resonance Balancing — Level 1",
-];
+export const PROGRAM_OPTIONS_BY_THERAPY: Record<string, string[]> = {
+  "Speech Therapy": ["Articulation Programme — Level 2", "Phonological Awareness — Level 2"],
+  "Language Therapy": [
+    "Early Intervention — Level 1",
+    "Early Language Builder — Level 1",
+    "Language Processing — Level 3",
+  ],
+  "Fluency Therapy": ["Fluency Shaping — Level 3"],
+  "Voice Therapy": ["Resonance Balancing — Level 1"],
+  "Swallowing Therapy": ["Swallowing Rehabilitation — Level 1"],
+};
 
-export const PACKAGE_OPTIONS = [
-  "Monthly Basic — 8 Sessions",
-  "Monthly Standard — 12 Sessions",
-  "Monthly Premium — 16 Sessions",
-  "Online Booking — 6 Session Bundle",
-  "Session Wise — Pay per visit",
-  "Daily Visit — Standard Rate",
-];
+export const PROGRAM_OPTIONS = Object.values(PROGRAM_OPTIONS_BY_THERAPY).flat();
 
 export const PATIENT_DATE_RANGES = [
   { key: "all", label: "All time" },

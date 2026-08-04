@@ -23,13 +23,14 @@ import {
   BLOOD_GROUPS,
   GENDERS,
   GUARDIAN_RELATIONS,
-  PACKAGE_OPTIONS,
   PAYMENT_TYPES,
-  PROGRAM_OPTIONS,
+  PROGRAM_OPTIONS_BY_THERAPY,
   THERAPISTS,
   THERAPY_TYPES,
   calculateAge,
 } from "@/constants/patient-data";
+import { PAYMENT_PACKAGES, findPackage, type PaymentPackage } from "@/constants/payment-data";
+import { formatTaka } from "@/constants/dashboard-data";
 
 const STEPS = [
   { id: 1, title: "Personal", description: "Identity and contact details" },
@@ -54,7 +55,34 @@ export function RegisterPatientDialog({
   const [submitting, setSubmitting] = useState(false);
   const [dob, setDob] = useState("");
 
+  const [therapyType, setTherapyType] = useState("");
+  const [programme, setProgramme] = useState("");
+  const [paymentType, setPaymentType] = useState("");
+  const [packageId, setPackageId] = useState("");
+
   const age = useMemo(() => calculateAge(dob), [dob]);
+
+  const programmeOptions = useMemo(
+    () => (therapyType ? (PROGRAM_OPTIONS_BY_THERAPY[therapyType] ?? []) : []),
+    [therapyType],
+  );
+
+  const packageOptions = useMemo(
+    () => PAYMENT_PACKAGES.filter((item) => item.status === "Active" && item.type === paymentType),
+    [paymentType],
+  );
+
+  const selectedPackage = useMemo(() => findPackage(packageId), [packageId]);
+
+  const handleTherapyTypeChange = (value: string) => {
+    setTherapyType(value);
+    setProgramme("");
+  };
+
+  const handlePaymentTypeChange = (value: string) => {
+    setPaymentType(value);
+    setPackageId("");
+  };
 
   const close = () => {
     onOpenChange(false);
@@ -136,9 +164,22 @@ export function RegisterPatientDialog({
         ) : step === 3 ? (
           <StepMedical />
         ) : step === 4 ? (
-          <StepProgramme />
+          <StepProgramme
+            therapyType={therapyType}
+            onTherapyTypeChange={handleTherapyTypeChange}
+            programme={programme}
+            onProgrammeChange={setProgramme}
+            programmeOptions={programmeOptions}
+          />
         ) : (
-          <StepPayment />
+          <StepPayment
+            paymentType={paymentType}
+            onPaymentTypeChange={handlePaymentTypeChange}
+            packageId={packageId}
+            onPackageIdChange={setPackageId}
+            packageOptions={packageOptions}
+            selectedPackage={selectedPackage}
+          />
         )}
 
         <div className="flex items-center justify-between gap-3 border-t border-border pt-5">
@@ -250,11 +291,7 @@ function StepPersonal({
         <Input id="patient-phone" placeholder="+880 17XX-XXXXXX" />
       </FormField>
       <FormField id="patient-address" label="Address" required className="sm:col-span-2">
-        <Textarea
-          id="patient-address"
-          rows={2}
-          placeholder="House, road, area, city, postcode"
-        />
+        <Textarea id="patient-address" rows={2} placeholder="House, road, area, city, postcode" />
       </FormField>
     </div>
   );
@@ -342,11 +379,23 @@ function StepMedical() {
   );
 }
 
-function StepProgramme() {
+function StepProgramme({
+  therapyType,
+  onTherapyTypeChange,
+  programme,
+  onProgrammeChange,
+  programmeOptions,
+}: {
+  therapyType: string;
+  onTherapyTypeChange: (value: string) => void;
+  programme: string;
+  onProgrammeChange: (value: string) => void;
+  programmeOptions: string[];
+}) {
   return (
     <div className="grid gap-5 py-2 sm:grid-cols-2">
       <FormField id="therapy-type" label="Therapy type" required>
-        <Select>
+        <Select value={therapyType} onValueChange={onTherapyTypeChange}>
           <SelectTrigger id="therapy-type">
             <SelectValue placeholder="Select therapy type" />
           </SelectTrigger>
@@ -359,15 +408,24 @@ function StepProgramme() {
           </SelectContent>
         </Select>
       </FormField>
-      <FormField id="programme" label="Programme" required>
-        <Select>
+      <FormField
+        id="programme"
+        label="Programme"
+        hint={
+          therapyType
+            ? "Programmes shown for the selected therapy type"
+            : "Select a therapy type first"
+        }
+        required
+      >
+        <Select value={programme} onValueChange={onProgrammeChange} disabled={!therapyType}>
           <SelectTrigger id="programme">
             <SelectValue placeholder="Select programme" />
           </SelectTrigger>
           <SelectContent>
-            {PROGRAM_OPTIONS.map((programme) => (
-              <SelectItem key={programme} value={programme}>
-                {programme}
+            {programmeOptions.map((item) => (
+              <SelectItem key={item} value={item}>
+                {item}
               </SelectItem>
             ))}
           </SelectContent>
@@ -401,11 +459,31 @@ function StepProgramme() {
   );
 }
 
-function StepPayment() {
+function StepPayment({
+  paymentType,
+  onPaymentTypeChange,
+  packageId,
+  onPackageIdChange,
+  packageOptions,
+  selectedPackage,
+}: {
+  paymentType: string;
+  onPaymentTypeChange: (value: string) => void;
+  packageId: string;
+  onPackageIdChange: (value: string) => void;
+  packageOptions: PaymentPackage[];
+  selectedPackage?: PaymentPackage;
+}) {
+  const discountedPrice = selectedPackage
+    ? Math.round(selectedPackage.price * (1 - selectedPackage.discount / 100))
+    : 0;
+  const registrationFee = selectedPackage?.registrationFee ?? 0;
+  const totalPayable = discountedPrice + registrationFee;
+
   return (
     <div className="grid gap-5 py-2 sm:grid-cols-2">
       <FormField id="payment-type" label="Payment type" required>
-        <Select>
+        <Select value={paymentType} onValueChange={onPaymentTypeChange}>
           <SelectTrigger id="payment-type">
             <SelectValue placeholder="Select payment type" />
           </SelectTrigger>
@@ -421,33 +499,77 @@ function StepPayment() {
       <FormField
         id="package"
         label="Package"
-        hint="Package catalogue is managed in the billing module"
+        hint={
+          paymentType
+            ? `${packageOptions.length} active package${packageOptions.length === 1 ? "" : "s"} for ${paymentType}`
+            : "Select a payment type first"
+        }
+        required
       >
-        <Select>
+        <Select value={packageId} onValueChange={onPackageIdChange} disabled={!paymentType}>
           <SelectTrigger id="package">
             <SelectValue placeholder="Select package" />
           </SelectTrigger>
           <SelectContent>
-            {PACKAGE_OPTIONS.map((option) => (
-              <SelectItem key={option} value={option}>
-                {option}
+            {packageOptions.map((option) => (
+              <SelectItem key={option.id} value={option.id}>
+                {option.name}
               </SelectItem>
             ))}
           </SelectContent>
         </Select>
       </FormField>
-      <FormField id="registration-fee" label="Registration fee (৳)" required>
-        <Input id="registration-fee" type="number" defaultValue={1000} min={0} />
+      <FormField
+        id="registration-fee"
+        label="Registration fee (৳)"
+        hint="Calculated automatically from the selected package"
+        required
+      >
+        <Input
+          id="registration-fee"
+          type="number"
+          readOnly
+          value={registrationFee || ""}
+          placeholder="—"
+          min={0}
+          className="bg-muted/40"
+        />
       </FormField>
       <FormField id="payment-remarks" label="Remarks">
         <Input id="payment-remarks" placeholder="e.g. Guardian pays by bKash" />
       </FormField>
-      <div className="rounded-lg border border-border bg-muted/30 p-4 sm:col-span-2">
-        <p className="text-[13px] font-medium text-foreground">Billing is not charged yet</p>
-        <p className="mt-1 text-[12.5px] text-muted-foreground">
-          Invoices and receipts are generated once the payments module is connected.
-        </p>
-      </div>
+
+      {selectedPackage ? (
+        <div className="rounded-lg border border-border bg-muted/30 p-4 sm:col-span-2">
+          <div className="flex items-center justify-between gap-3">
+            <p className="text-[13px] font-medium text-foreground">{selectedPackage.name}</p>
+            <span className="text-[12.5px] text-muted-foreground">
+              {selectedPackage.type} · {selectedPackage.sessions} session
+              {selectedPackage.sessions === 1 ? "" : "s"} · {selectedPackage.durationLabel}
+            </span>
+          </div>
+          <dl className="mt-3 grid gap-2 text-[12.5px] sm:grid-cols-4">
+            <div>
+              <dt className="text-muted-foreground">Package price</dt>
+              <dd className="font-medium text-foreground">{formatTaka(selectedPackage.price)}</dd>
+            </div>
+            <div>
+              <dt className="text-muted-foreground">Discount</dt>
+              <dd className="font-medium text-foreground">
+                {selectedPackage.discount > 0 ? `${selectedPackage.discount}%` : "—"}
+              </dd>
+            </div>
+            <div>
+              <dt className="text-muted-foreground">Registration fee</dt>
+              <dd className="font-medium text-foreground">{formatTaka(registrationFee)}</dd>
+            </div>
+            <div>
+              <dt className="text-muted-foreground">Total payable</dt>
+              <dd className="font-semibold text-primary">{formatTaka(totalPayable)}</dd>
+            </div>
+          </dl>
+        </div>
+      ) : null}
     </div>
   );
 }
